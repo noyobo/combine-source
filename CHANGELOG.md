@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.4](https://github.com/noyobo/combine-source/compare/v1.0.3...v1.0.4) (2025-02-13)
+
+
+### Bug Fixes
+
+* support input map optional ([cb7b5c9](https://github.com/noyobo/combine-source/commit/cb7b5c9b49861ced305cbe618ec06d48acbe9929))
+
 ### [1.0.3](https://github.com/noyobo/combine-source/compare/v1.0.0...v1.0.3) (2025-02-13)
 
 
