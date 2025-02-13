@@ -1,4 +1,3 @@
-
 # combine-source
 
 [![npm package][npm-img]][npm-url]
@@ -37,25 +36,27 @@ npm install combine-source
 Here's an example of how to use the `combineSource` function:
 
 ```typescript
-import { combineSource, CombineFile } from 'combine-source';
+import { CombineFile, combineSource } from 'combine-source';
 
 const files: CombineFile[] = [
   {
     code: 'console.log("File 1");',
-    map: { /* source map object for file 1 */ },
-    path: 'file1.js',
+    map: {
+      /* source map object for file 1 */
+    },
   },
   {
     code: 'console.log("File 2");',
-    map: { /* source map object for file 2 */ },
-    path: 'file2.js',
+    map: {
+      /* source map object for file 2 */
+    },
   },
 ];
 
 const result = combineSource(files);
 
 console.log(result.code); // Combined code
-console.log(result.map);  // Combined source map
+console.log(result.map); // Combined source map
 ```
 
 ## Scripts
@@ -76,17 +77,15 @@ Contributions are welcome! Please open an issue or submit a pull request.
 
 For any questions or issues, please open an issue on this repository.
 
-
-
-[build-img]:https://github.com/noyobo/combine-source/actions/workflows/ci.yml/badge.svg
-[build-url]:https://github.com/noyobo/combine-source/actions/workflows/ci.yml
-[downloads-img]:https://img.shields.io/npm/dt/combine-source
-[downloads-url]:https://www.npmtrends.com/combine-source
-[npm-img]:https://img.shields.io/npm/v/combine-source
-[npm-url]:https://www.npmjs.com/package/combine-source
-[issues-img]:https://img.shields.io/github/issues/noyobo/combine-source
-[issues-url]:https://github.com/noyobo/combine-source/issues
-[codecov-img]:https://codecov.io/gh/noyobo/combine-source/branch/main/graph/badge.svg
-[codecov-url]:https://codecov.io/gh/noyobo/combine-source
-[commitizen-img]:https://img.shields.io/badge/commitizen-friendly-brightgreen.svg
-[commitizen-url]:http://commitizen.github.io/cz-cli/
+[build-img]: https://github.com/noyobo/combine-source/actions/workflows/ci.yml/badge.svg
+[build-url]: https://github.com/noyobo/combine-source/actions/workflows/ci.yml
+[downloads-img]: https://img.shields.io/npm/dt/combine-source
+[downloads-url]: https://www.npmtrends.com/combine-source
+[npm-img]: https://img.shields.io/npm/v/combine-source
+[npm-url]: https://www.npmjs.com/package/combine-source
+[issues-img]: https://img.shields.io/github/issues/noyobo/combine-source
+[issues-url]: https://github.com/noyobo/combine-source/issues
+[codecov-img]: https://codecov.io/gh/noyobo/combine-source/branch/main/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/noyobo/combine-source
+[commitizen-img]: https://img.shields.io/badge/commitizen-friendly-brightgreen.svg
+[commitizen-url]: http://commitizen.github.io/cz-cli/
