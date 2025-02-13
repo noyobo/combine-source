@@ -2,8 +2,33 @@ import { RawSourceMap, SourceMapConsumer, SourceMapGenerator } from 'source-map-
 
 export type CombineFile = {
   code: string;
-  map: RawSourceMap | string;
+  map: RawSourceMap | string | undefined;
 };
+
+function isValidSourceMap(map: RawSourceMap | string | undefined): map is RawSourceMap {
+  return 'object' === typeof map && map != null && 'version' in map && 'sources' in map && 'mappings' in map;
+}
+
+function createEmptySourceMap(): RawSourceMap {
+  return {
+    version: '3',
+    sources: [],
+    names: [],
+    mappings: '',
+  };
+}
+
+function normalizeSourceMap(map: RawSourceMap | string | undefined): RawSourceMap {
+  if (isValidSourceMap(map)) {
+    return map;
+  } else if ('string' === typeof map) {
+    return normalizeSourceMap(JSON.parse(map));
+  } else if (map == null) {
+    return createEmptySourceMap();
+  } else {
+    throw new Error('Invalid source map');
+  }
+}
 
 export const combineSource = (files: CombineFile[]) => {
   let combinedCode = '';
@@ -13,7 +38,7 @@ export const combineSource = (files: CombineFile[]) => {
   files.forEach((file) => {
     const { code, map } = file;
 
-    const consumer = new SourceMapConsumer('string' === typeof map ? JSON.parse(map) : map);
+    const consumer = new SourceMapConsumer(normalizeSourceMap(map));
 
     combinedCode += code + '\n';
 
