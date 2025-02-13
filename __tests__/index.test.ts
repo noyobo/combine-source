@@ -9,7 +9,6 @@ function createCombineFile(path: string, code: string) {
   return {
     code: s.toString(),
     map: s.generateMap({ source: path, includeContent: true, file: `${path}.map` }).toString(),
-    path,
   };
 }
 

@@ -1,9 +1,8 @@
-import { SourceMapConsumer, SourceMapGenerator, RawSourceMap } from 'source-map-js';
+import { RawSourceMap, SourceMapConsumer, SourceMapGenerator } from 'source-map-js';
 
 export type CombineFile = {
   code: string;
-  map: RawSourceMap;
-  path: string;
+  map: RawSourceMap | string;
 };
 
 export const combineSource = (files: CombineFile[]) => {
@@ -12,15 +11,12 @@ export const combineSource = (files: CombineFile[]) => {
   const generator = new SourceMapGenerator();
 
   files.forEach((file) => {
-    const { code, map, path } = file;
+    const { code, map } = file;
 
-    // 使用同步API解析source map
-    const consumer = new SourceMapConsumer(map);
+    const consumer = new SourceMapConsumer('string' === typeof map ? JSON.parse(map) : map);
 
-    // 合并代码
-    combinedCode += code + '\n'; // 新增一行以区分不同文件合并
+    combinedCode += code + '\n';
 
-    // 合并 source map
     consumer.eachMapping((mapping) => {
       generator.addMapping({
         generated: {
@@ -34,7 +30,7 @@ export const combineSource = (files: CombineFile[]) => {
                 column: mapping.originalColumn,
               }
             : null,
-        source: mapping.source ? path : null, // 使用文件路径作为源路径
+        source: mapping.source,
         name: mapping.name,
       });
     });
@@ -43,7 +39,7 @@ export const combineSource = (files: CombineFile[]) => {
     consumer.sources.forEach((source) => {
       const content = consumer.sourceContentFor(source);
       if (content) {
-        generator.setSourceContent(path, content);
+        generator.setSourceContent(source, content);
       }
     });
 
