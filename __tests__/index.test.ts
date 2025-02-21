@@ -34,7 +34,7 @@ describe('combineSource', () => {
     );
   });
 
-  it('should combine files', () => {
+  it('should combine map is optional', () => {
     const file1 = createCombineFile('file1.ts', 'console.log("file1")');
     const file2 = createCombineFile('file2.ts', 'console.log("file2")', false);
     const file3 = createCombineFile('file3.ts', 'console.log("file3")');
@@ -55,5 +55,11 @@ describe('combineSource', () => {
     expect(map).toMatchInlineSnapshot(
       `"{"version":3,"sources":["file1.ts","file3.ts"],"names":[],"mappings":";AAAA;;;;;;ACAA","sourcesContent":["console.log(\\"file1\\")","console.log(\\"file3\\")"]}"`,
     );
+  });
+
+  it('should combine empty array', () => {
+    const { code, map } = combineSource([]);
+    expect(code).toMatchInlineSnapshot(`""`);
+    expect(map).toMatchInlineSnapshot(`"{"version":3,"sources":[],"names":[],"mappings":""}"`);
   });
 });

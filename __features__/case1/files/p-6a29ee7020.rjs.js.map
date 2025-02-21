@@ -1,0 +1,17 @@
+{
+  "version": 3,
+  "sources": [
+    "../../app/pages/tab1/index.rjs",
+    "rjs:/Users/noyobo/TuYaMiniProject/miniapp-88/app/pages/tab1/index.rjs"
+  ],
+  "sourceRoot": "/Users/noyobo/TuYaMiniProject/miniapp-88/app",
+  "sourcesContent": [
+    "import { increment, sayHello } from '../../shared/rjs-common'\n\nexport default Render({\n  init() {\n    console.log('tab1 init')\n    increment()\n    sayHello()\n  },\n})\n",
+    "import ViewRender from '/Users/noyobo/TuYaMiniProject/miniapp-88/app/pages/tab1/index.rjs'\nexport default function(opts) {\n  var uuid = opts.uuid;\n  var hash = opts.hash;\n  var shortPath = opts.shortPath || \"\";\n  var viewRender = new ViewRender(opts);\n  // callMethod 是内置的方法，不需要订阅，由基础库 Render 函数决定\n  var viewRender_methods = Object.keys(viewRender).filter(function(f){\n    return f !== 'callMethod' && 'function' === typeof viewRender[f];\n  });\n  viewRender_methods.forEach(function (method) {\n    ViewJSBridge.subscribe(hash + \":\" + uuid + \":\" + method, function(params, callback) {\n      var args = params.args;\n      var isAsync = params.isAsync;\n      try {\n        var result = viewRender[method].apply(viewRender, args);\n        if (isAsync) {\n          result.then(\n            function (result) {callback({result})}, \n            function (err) {\n              callback({error: {message: err.message, stack: err.stack, reason: err.reason}})\n            }\n          );\n        }\n      } catch (e) {\n        var errorMessage = JSON.stringify(e, Object.getOwnPropertyNames(e));\n        var msg = '[Render Script] Apply \"' + method + '\" method captured an error in \"' + shortPath + '.rjs\".';\n        console.error(msg);\n        console.error(e);\n        if (isAsync) {\n          callback({error: {message: e.message, stack: e.stack, reason: e.reason}});\n        }\n        ViewJSBridge.publish('business-view-error', {\n          type: 'rjs-method-error',\n          shortPath: shortPath,\n          message: msg,\n          error: errorMessage,\n        })\n      }\n    });\n  });\n};"
+  ],
+  "names": [
+    "tab1_default",
+    "result"
+  ],
+  "mappings": ";;;;;;;;;;;;;AAEA,IAAO,eAAQ,OAAO;mBACpB,OAAO;QACL,QAAQ,GAAA,CAAI,WAAW;QACvB,IAAA,2BAAA,CAAU;QACV,IAAA,0BAAA,CAAS;IACX;AACF,CAAC;;ACPc,SAARA,cAAiB,IAAA,EAAM;IAC5B,IAAI,OAAO,KAAK,IAAA;IAChB,IAAI,OAAO,KAAK,IAAA;IAChB,IAAI,YAAY,KAAK,SAAA,IAAa;IAClC,IAAI,aAAa,IAAI,aAAW,IAAI;IAEpC,IAAI,qBAAqB,OAAO,IAAA,CAAK,UAAU,EAAE,MAAA,CAAO,SAAS,CAAA,EAAE;QACjE,OAAO,MAAM,gBAAgB,eAAe,OAAO,UAAA,CAAW,CAAC,CAAA;IACjE,CAAC;IACD,mBAAmB,OAAA,CAAQ,SAAU,MAAA,EAAQ;QAC3C,aAAa,SAAA,CAAU,OAAO,MAAM,OAAO,MAAM,QAAQ,SAAS,MAAA,EAAQ,QAAA,EAAU;YAClF,IAAI,OAAO,OAAO,IAAA;YAClB,IAAI,UAAU,OAAO,OAAA;YACrB,IAAI;gBACF,IAAI,SAAS,UAAA,CAAW,MAAM,CAAA,CAAE,KAAA,CAAM,YAAY,IAAI;gBACtD,IAAI,SAAS;oBACX,OAAO,IAAA,CACL,SAAUC,OAAAA,EAAQ;wBAAC,SAAS;4BAAC,QAAAA;wBAAM,CAAC;oBAAC,GACrC,SAAU,GAAA,EAAK;wBACb,SAAS;4BAAC,OAAO;gCAAC,SAAS,IAAI,OAAA;gCAAS,OAAO,IAAI,KAAA;gCAAO,QAAQ,IAAI,MAAA;4BAAM;wBAAC,CAAC;oBAChF;gBAEJ;YACF,EAAA,OAAS,GAAG;gBACV,IAAI,eAAe,KAAK,SAAA,CAAU,GAAG,OAAO,mBAAA,CAAoB,CAAC,CAAC;gBAClE,IAAI,MAAM,4BAA4B,SAAS,oCAAoC,YAAY;gBAC/F,QAAQ,KAAA,CAAM,GAAG;gBACjB,QAAQ,KAAA,CAAM,CAAC;gBACf,IAAI,SAAS;oBACX,SAAS;wBAAC,OAAO;4BAAC,SAAS,EAAE,OAAA;4BAAS,OAAO,EAAE,KAAA;4BAAO,QAAQ,EAAE,MAAA;wBAAM;oBAAC,CAAC;gBAC1E;gBACA,aAAa,OAAA,CAAQ,uBAAuB;oBAC1C,MAAM;+BACN;oBACA,SAAS;oBACT,OAAO;gBACT,CAAC;YACH;QACF,CAAC;IACH,CAAC;AACH"
+}

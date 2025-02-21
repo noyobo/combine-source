@@ -1,0 +1,12 @@
+{
+  "version": 3,
+  "sources": [
+    "../../app/shared/rjs-common.js"
+  ],
+  "sourceRoot": "/Users/noyobo/TuYaMiniProject/miniapp-88/app",
+  "sourcesContent": [
+    "let count = 0\n\nexport function increment() {\n  count++\n}\n\nexport function sayHello() {\n  console.warn('rjs-common', count)\n}\n"
+  ],
+  "names": [],
+  "mappings": ";;;;;;;;;;;;;;;;;;AAAA,IAAI,QAAQ;AAEL,SAAS,YAAY;IAC1B;AACF;AAEO,SAAS,WAAW;IACzB,QAAQ,IAAA,CAAK,cAAc,KAAK;AAClC"
+}

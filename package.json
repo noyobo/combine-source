@@ -28,7 +28,10 @@
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
     "@types/node": "^22.13.2",
+    "convert-source-map": "^2.0.0",
+    "fs-extra": "^11.3.0",
     "magic-string": "^0.30.17",
     "prettier": "^3.5.0",
     "standard-version": "^9.5.0",
